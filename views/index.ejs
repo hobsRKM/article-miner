@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="title" content="Link | Extract images, Summary and Many More">
+  <meta name="description" content="The API automatically extracts relevant image, article description, article keywords, and authors. Extracts up to 10000 Articles per day .">
+  <meta name="keywords" content="API, Extract Image, Extract authors, Extract keywords, keywords, article image, article title">
+  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+  
+  <!-- Site Properties -->
+  <title>extractmi.com</title>
+  <link rel="stylesheet" type="text/css" href="/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/site.css">
+
+  <link rel="stylesheet" type="text/css" href="/dist/components/container.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/grid.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/header.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/image.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/menu.css">
+
+  <link rel="stylesheet" type="text/css" href="/dist/components/divider.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/dropdown.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/segment.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/list.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/transition.css">
+
+  <link rel="stylesheet" type="text/css" href="/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/dist/components/input.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/beautify-json.css">
+
+
+  <style type="text/css">
+
+    .hidden.menu {
+      display: none;
+    }
+
+    .masthead.segment {
+      min-height: 700px;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+
+    .ui.vertical.stripe {
+      padding: 8em 0em;
+    }
+    .ui.vertical.stripe h3 {
+      font-size: 2em;
+    }
+    .ui.vertical.stripe .button + h3,
+    .ui.vertical.stripe p + h3 {
+      margin-top: 3em;
+    }
+    .ui.vertical.stripe .floated.image {
+      clear: both;
+    }
+    .ui.vertical.stripe p {
+      font-size: 1.33em;
+    }
+    .ui.vertical.stripe .horizontal.divider {
+      margin: 3em 0em;
+    }
+
+    .quote.stripe.segment {
+      padding: 0em;
+    }
+    .quote.stripe.segment .grid .column {
+      padding-top: 5em;
+      padding-bottom: 5em;
+    }
+
+    .footer.segment {
+      padding: 5em 0em;
+    }
+
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+
+    @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+    .small{
+      width: 268px !important;
+    }
+    #mine{
+      font-size: 24px;
+    font-weight: bold;
+    }
+    .article{
+      background: #eee !important;
+    font-family: sans-serif;
+    }
+    .collapsible{
+      list-style: none;
+    }
+  </style>
+
+  <script src="assets/library/jquery.min.js"></script>
+  <script src="/dist/components/visibility.js"></script>
+  <script src="/dist/components/sidebar.js"></script>
+  <script src="/dist/components/transition.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="/assets/js/jquery.beautify-json.js"></script>
+  <script>
+    
+  $(document)
+    .ready(function() {
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('fade in');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('fade out');
+          }
+        })
+      ;
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+        
+    })
+  ;
+  
+  function demo(){
+    $('.article').addClass('loading');
+    $.ajax({
+            url: "api",
+            type: "post",
+            data: {url:$("#mine").val()},
+            dataType: "json",
+            success: function (data) {
+              $('.json').html(JSON.stringify(data[0].mine));
+              $('.json').beautifyJSON({
+                type: "strict"
+            });
+            var article=data[0].mine;
+            $('#image').attr("src",article.image);
+            $('#summary').html(article.summary);
+            $('#title').html(article.text);
+            $('#keywords').html(article.keywords.join(','));
+            $('.article').removeClass('loading');
+            }
+        });
+  }
+
+  </script>
+</head>
+<body>
+
+
+
+
+
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="ui inverted vertical masthead center aligned segment">
+
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="toc item">
+          <i class="sidebar icon"></i>
+        </a>
+ 
+        <div class="right item">
+          <a href="login" class="ui inverted button">Log in</a>
+          <a href="signup" class="ui inverted button">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+      Extractor
+      </h1>
+      <h2> Free URL Miner -  Extract Primary Image, Description and Many more from any Site / URL.</h2>
+      <div class="ui huge primary button">Try Now <i class="right arrow icon"></i></div>
+    </div>
+
+  </div>
+
+  <div class="ui  segment">
+    <h1 class="ui header center aligned">Try it out!</h1>
+    <div class="ui fluid action input">
+      <input id="mine" type="text" placeholder="Search..." value="https://jamesclear.com/behavioral-psychology">
+      <div onclick="demo()" class="ui button">Try</div>
+    </div>
+    <div class="ui segment   article loading">
+      <img id="image" class="ui small left floated image" src="">
+      <p ><b>TITLE:</b> <span id="title"></span></p>
+      <p ><b>SUMMARY:</b> <span id="summary"></span></p>
+       <p ><b>KEYWORDS:</b> <span id="keywords"></span></p>
+    </div>
+    <div class="ui  segment article loading">
+      <div class="ui inverted accordion">
+        <div class="title">
+          <i class="dropdown icon"></i>
+         API Response 
+        </div>
+        <div class="content">
+          <p class="transition json">Try out an example to view the Response.</p>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+  <div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide column">
+          <h3 class="ui header">API</h3>
+          <p>Extract Any URL Details using the API.</p>
+          <p>Mine upto 10,000 URLs Per Day for free.</p>
+         
+        </div>
+        <div class="six wide right floated column">
+          <img src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+        </div>
+      </div>
+      <div class="row">
+        <div class="center aligned column">
+          <a class="ui huge button">Sign Up Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ui vertical stripe quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>"No subscription required"</h3>
+         
+        </div>
+        <div class="column">
+          <h3>"High Perfomance APIs with availablity 99% of the time"</h3>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="ui inverted vertical footer segment">
+  
+        <div>
+          <center><h4  class="ui inverted header">&copy; 2020 www.extractmi.com</h4></center>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+demo();
+</script>
+</body>
+
+</html>

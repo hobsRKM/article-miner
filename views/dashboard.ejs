@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>extractmi | Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="https://semantic-ui.com/javascript/library/highlight.min.js"></script>
+<style>
+
+    code{
+        border: 1px solid;
+    }
+</style>
+</head>
+
+<body>
+    <div class="ui fixed top menu">
+        <a href="javascript:void(0)" class="icon active item" id="hideToggle"><h3><i class="chevron left icon"></i></h3></a>
+        <a href="javascript:void(0)" class="icon active item" id="showToggle"><h3><i class="chevron right icon"></i></h3></a>
+        <a href="dashboard" data-toggle="slide" class="item"><h3>extractmi</h3></a>
+        <div class="menu right">
+            <a class="icon item pointer" data-toggle="popup" data-content="#mail" data-position="bottom right"><i class="mail icon"></i></a>
+            <div id="mail" class="ui fluid popup" style="min-width:400px;padding-top:30px;">
+                <div class="ui divided items">
+                 
+                   
+                </div>
+                <div class="ui divider"></div>
+                
+            </div>
+            <a class="icon item pointer" data-toggle="popup" data-content="#user" data-position="bottom right"><img src="assets/img/people_4.jpg" class="ui avatar image" alt=""></a>
+            <div id="user" class="ui popup">
+                <div class="ui secondary vertical menu">
+                    <div class="header item">USER MENU</div>
+                    <a href="" class="item">Profile <i class="user icon"></i></a>
+                    <a href="" class="item">Settings <i class="settings icon"></i></a>
+                    <div class="ui divider"></div>
+                    <a href="logout" class="item">Logout <i class="sign out icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pusher">
+        <div class="ui fluid container">
+            <div class="ui two column grid">
+                <div class="side menu" id="sideMenu">
+                 
+                    <div class="ui fluid vertical menu " id="verticalMenu">
+                        <a href="dashboard" class="item"><i class="dashboard icon"></i> <span>Dashboard</span></a>
+                        <a href="logout" class="item"><i class="sign out icon"></i> <span>Logout</span></a>
+                    
+                    </div>
+                </div>
+                
+                <div class="sixteen wide column" id="content">
+                    <div style="text-align:center" class="ui center placeholder segment">
+                        <div class="ui icon header">
+                          
+                            <div class="ui  action input">
+                                <input id="key" value=<%= key %> type="text" placeholder="" readonly >
+                                <button data-clipboard-target="#key" class="ui button key">Copy Key</button>
+                              </div>
+                        </div>
+                       
+                      </div>
+                    <div class="ui horizontal divider">API Usage in Various Langauges</div>
+                    <div class="column">
+                           
+                        <div>
+                          
+                        <pre><code class="php">
+
+/**
+
+PHP
+
+**/
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, 'https://extractmi.com/api?url=https://jamesclear.com/behavioral-psychology&key=<API KEY>');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+$result = curl_exec($ch);
+if (curl_errno($ch)) {
+echo 'Error:' . curl_error($ch);
+}
+curl_close($ch)                              
+                          </code></pre>
+                        </div>
+                </div>
+                <div class="column">
+                    <pre><code class="php">
+#bash                      
+curl "https://extractmi.com/api?url=https://jamesclear.com/behavioral-psychology&key=<API KEY>"
+
+                       </code></pre>
+                </div>
+                <div class="column">
+                    <pre><code class="php">
+
+#nodejs
+var request = require('request');
+
+var options = {
+    url: 'https://extractmi.com/api?url=https://jamesclear.com/behavioral-psychology&key='
+};
+
+function callback(error, response, body) {
+    if (!error && response.statusCode == 200) {
+        console.log(body);
+    }
+}
+
+request(options, callback);
+                        
+
+                       </code></pre>
+                </div>
+                <div class="ui horizontal divider">Analytics Coming Soon..</div>
+                    <div style="display:none" class="ui two column stackable grid">
+                   
+                        <div class="column">
+                            <div class="ui styled fluid accordion">
+                                <div class="active title">
+                                    <i class="dropdown icon"></i> Web View <i class="signal icon"></i>
+                                </div>
+                                <div class="active content">
+                                    <div id="barChart" class="chart element"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="ui styled fluid accordion">
+                                <div class="active title">
+                                    <i class="dropdown icon"></i> Visitor <i class="user icon"></i>
+                                </div>
+                                <div class="active content">
+                                    <div id="lineChart" class="chart element"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="ui styled fluid accordion">
+                                <div class="active title">
+                                    <i class="dropdown icon"></i> Country Visitor <i class="marker icon"></i>
+                                </div>
+                                <div class="active content">
+                                    <div class="ui relaxed divided list">
+                                        <div class="item">
+                                            <a class="header">
+                                                <i class="large middle aligned id flag"></i> Indonesia
+                                                <span class="ui right floated green label">46</span>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="header">
+                                                <i class="large middle aligned us flag"></i> USA
+                                                <span class="ui right floated label">23</span>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="header">
+                                                <i class="large middle aligned uk flag"></i> England
+                                                <span class="ui right floated label">15</span>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="header">
+                                                <i class="large middle aligned ae flag"></i> United Arab Emirates
+                                                <span class="ui right floated blue label">26</span>
+                                            </a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="header">
+                                                <i class="large middle aligned sa flag"></i> Saudi Arabia
+                                                <span class="ui right floated label">10</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="ui styled fluid accordion">
+                                <div class="active title">
+                                    <i class="dropdown icon"></i> Latest Comment <i class="comment icon"></i>
+                                </div>
+                                <div class="active content">
+                                    <div class="ui relaxed divided list">
+                                        <div class="item">
+                                            <img src="assets/img/people_1.jpg" class="ui avatar image" alt="">
+                                            <div class="content">
+                                                <a class="header">Alana Steve</a>
+                                                <div class="description">cumque tempora repellendus qui  qui perspiciatis facere... <a href="">More</a> </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img src="assets/img/people_2.jpg" class="ui avatar image" alt="">
+                                            <div class="content">
+                                                <a class="header">Nathan Steven</a>
+                                                <div class="description">eprehenderit quos illum doloribus  inventore doloribus hic ipsum... <a href="">More</a> </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img src="assets/img/people_3.jpg" class="ui avatar image" alt="">
+                                            <div class="content">
+                                                <a class="header">First Jr Doe</a>
+                                                <div class="description">epellendus ducimus quae voluptas,  voluptas, nam necessitatibus... <a href="">More</a> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/semantic.min.js"></script>
+    <script type="text/javascript" src="assets/js/nicescroll.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+    <!-- Include AmCharts -->
+    <script type="text/javascript" src="assets/js/amcharts/amcharts.js"></script>
+    <script type="text/javascript" src="assets/js/amcharts/serial.js"></script>
+    <script type="text/javascript" src="assets/js/amcharts/themes/light.js"></script>
+
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/js/graph.js"></script>
+
+    <script>
+        var clipboard = new ClipboardJS('.key');
+        hljs.initHighlightingOnLoad();
+       
+        </script>
+</body>
+</html>

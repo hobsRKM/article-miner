@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>extractmi | Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="assets/css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
+
+
+    <style>
+
+
+    </style>
+</head>
+
+<body id="loginBackground">
+  
+    <div class="ui container">
+        <div id="success" class="ui hidden   success message">
+            <i class="close icon"></i>
+            <div class="header">
+              Your user registration was successful.
+            </div>
+            <p >You may now log-in here <a href="login">Login</a></p>
+          </div>
+          <div id="fail" class="ui hidden  red message"></div>
+        <div class="ui centered stackable grid">
+            <div class="six wide column">
+                <div class="ui segments" align="center">
+                    <div class="ui inverted blue padded segment">
+                        <span class="ui header">Register now!</span>
+                    </div>
+                    <div class="ui segment register_form">
+                        <form class="ui form" id="register">
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <input type="text" name="email" id="email" placeholder="Email">
+                                    <i class="user icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <input type="password" name="password" id="password" placeholder="Password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <input type="password" name="confirm_password" id="confirm_password"
+                                        placeholder="Confirm Password">
+                                    <i class="lock icon"></i>
+                                </div>
+                            </div>
+                            <button class="ui big fluid blue icon button" type="submit">Sign Up <i
+                                    class="sign in icon"></i></button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+    <script type="text/javascript" src="assets/js/semantic.min.js"></script>
+  
+    <script>
+        $('.ui.form')
+            .form({
+                fields: {
+                    email: {
+                        identifier: 'email',
+                        rules: [
+                            {
+                                type: 'email',
+                                prompt: 'Please enter your email'
+                            }
+                        ]
+                    },
+
+                    password: {
+                        identifier: 'password',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Please enter a password'
+                            },
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'Your password must be at least {ruleValue} characters'
+                            }
+                        ]
+                    },
+                    confirm_password: {
+                        identifier: 'confirm_password',
+                        rules: [
+                            {
+                                type: 'match[password]',
+                                prompt: 'Please enter a password'
+                            },
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'Your password must be at least {ruleValue} characters'
+                            }
+                        ]
+                    }
+                },
+                onSuccess: function (event, fields) {
+
+                    $(".register_form").addClass('loading');
+                    register();
+                    event.preventDefault();
+                },
+                onFailure: function (formErrors, fields) {
+
+                    console.log("on failure");
+                    event.preventDefault();
+                }
+            });
+
+        function register() {
+            $.ajax({
+                url: "signup/register",
+                method: "POST",
+                data: $("#register").serialize(),
+                success: function (result) {
+                    $(".register_form").removeClass('loading');
+                    $("#fail").addClass("hidden");
+                    $("#success").addClass("hidden");
+                    if(result.status=="fail"){
+                        $("#fail").removeClass("hidden");
+                        $("#fail").html(result.message);
+                    }
+                    if(result.status=="success"){
+                        $("#success").removeClass("hidden");
+                        $("#success").html(result.message);
+                    }
+                    if(result.status=="ERR"){
+                        $("#fail").removeClass("hidden");
+                        $("#fail").html(result.message);
+                    }
+
+                }
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

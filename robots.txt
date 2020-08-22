@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Allow: /sitemap.htm
+Sitemap: https://www.extractmi.com/sitemap.xml
