@@ -21,15 +21,18 @@ const https = require('https');
 const http = require('http');
 var Promise = require('promise');
 const fs = require('fs');
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/extractmi.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/extractmi.com/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/extractmi.com/chain.pem', 'utf8');
+/**
+ * Enable below to use HTTPS
+ */
+// const privateKey = fs.readFileSync('', 'utf8');
+// const certificate = fs.readFileSync('', 'utf8');
+// const ca = fs.readFileSync('', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate,
+// 	ca: ca
+// };
 
 //mysql
 
@@ -103,10 +106,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443, () => {
-	console.log('HTTPS Server running on port 443');
-});
+/**
+ * Enable this if you require HTTPS
+ */
+// const httpsServer = https.createServer(credentials, app);
+// httpsServer.listen(443, () => {
+// 	console.log('HTTPS Server running on port 443');
+// });
 const httpServer = http.createServer(app);
 
 httpServer.listen(8080, () => {
