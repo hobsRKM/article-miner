@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "array-flatten": "^3.0.0",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "clipboard": "^2.0.6",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
