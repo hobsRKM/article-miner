@@ -2,7 +2,7 @@
 
 A NodeJS API that Extracts URL details  such as Article title, Image, Description, Authors and keywords.
 
-Try it out [Click here for demo](https://extractmi.com)
+
 If you are not willing to host this API , you can signup and  use my API for free and mine  upto 10,000 URLs per day.
 
 
